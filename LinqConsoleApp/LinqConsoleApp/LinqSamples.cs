@@ -223,10 +223,10 @@ namespace LinqConsoleApp
         /// <summary>
         /// SELECT MAX(Salary) FROM Emps;
         /// </summary>
-        public double Przyklad3()
+        public int Przyklad3()
         {
-            var res  = Emps.Where(emp => emp.Salary == Emps.Max(emp => emp.Salary))
-                .Select(emp => emp.Salary);
+
+            var res = Emps.Max(emp => emp.Salary);
             return res;
         }
 
@@ -236,7 +236,7 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad4()
         {
-            var res  = Emps.Where(emp => emp.Salary  = Przyklad3());
+            var res  = Emps.Where(emp => emp.Salary  == Przyklad3());
         }
 
         /// <summary>
@@ -260,9 +260,11 @@ namespace LinqConsoleApp
         public void Przyklad6()
            
         {
-            var res = (from emp in Emps
-                       join dept in Depts on emp.Deptno equals dept.Deptno
-                       select emp+dept).ToList();
+            var objects = from emps in Emps
+                          join depts in Depts on emps.Deptno equals depts.Deptno
+                          select emps.Deptno + " " + depts.Deptno;
+
+           // var resL = Emps.Join(Depts, dept => dept.Deptno, emp => emp.Deptno, (emp, dept) => new { emp, dept });
             
         }
 
@@ -285,7 +287,7 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad8()
         {
-            var res  = Emps.Any(emp => emp.Job="Backend programmer");
+            var res  = Emps.Any(emp => emp.Job == "Backend programmer");
 
         }
 
